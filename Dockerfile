@@ -1,5 +1,7 @@
 FROM alpine:latest
-RUN apk -U add agetty
+RUN apk -U add agetty; \
+    adduser lpbk; \
+    echo lpbk:demo | chpasswd
 COPY issue /etc/issue
-COPY entrypoint.sh /entrypoint.sh
-ENTRYPOINT /entrypoint.sh
+COPY inittab /etc/inittab
+ENTRYPOINT /sbin/init
